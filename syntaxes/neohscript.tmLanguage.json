@@ -1,0 +1,252 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "NeoHScript",
+  "scopeName": "source.neohscript",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#meta"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#declarations"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#members"
+    },
+    {
+      "include": "#calls"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#operators"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.block.documentation.neohscript",
+          "begin": "/\\*\\*(?!/)",
+          "end": "\\*/",
+          "patterns": [
+            {
+              "name": "storage.type.class.jsdoc",
+              "match": "@[A-Za-z]+"
+            },
+            {
+              "name": "entity.name.type.instance.jsdoc",
+              "match": "\\{[^}]*\\}"
+            },
+            {
+              "name": "variable.other.jsdoc",
+              "match": "(?<=@param|@arg|@argument)\\s+\\[?[A-Za-z_][\\w.]*"
+            }
+          ]
+        },
+        {
+          "name": "comment.block.neohscript",
+          "begin": "/\\*",
+          "end": "\\*/"
+        },
+        {
+          "name": "comment.line.double-slash.neohscript",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.neohscript",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.neohscript",
+              "match": "\\\\(?:[nrt0'\"\\\\$]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.neohscript",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.neohscript",
+              "match": "\\\\(?:[nrt0'\"\\\\$]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})"
+            },
+            {
+              "name": "constant.character.escape.neohscript",
+              "match": "\\$\\$"
+            },
+            {
+              "name": "meta.embedded.line.neohscript",
+              "begin": "\\$\\{",
+              "end": "\\}",
+              "beginCaptures": {
+                "0": {
+                  "name": "punctuation.section.embedded.begin.neohscript"
+                }
+              },
+              "endCaptures": {
+                "0": {
+                  "name": "punctuation.section.embedded.end.neohscript"
+                }
+              },
+              "patterns": [
+                {
+                  "include": "$self"
+                }
+              ]
+            },
+            {
+              "match": "(\\$)([A-Za-z_]\\w*)",
+              "captures": {
+                "1": {
+                  "name": "punctuation.definition.variable.neohscript"
+                },
+                "2": {
+                  "name": "variable.other.interpolated.neohscript"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "meta": {
+      "name": "storage.type.annotation.neohscript",
+      "match": "@:?[A-Za-z_]\\w*"
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.neohscript",
+          "match": "\\b0[xX][0-9a-fA-F]+\\b"
+        },
+        {
+          "name": "constant.numeric.float.neohscript",
+          "match": "\\b\\d+\\.\\d+(?:[eE][+-]?\\d+)?\\b|\\b\\d+[eE][+-]?\\d+\\b|(?<![\\w.])\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.neohscript",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "declarations": {
+      "patterns": [
+        {
+          "match": "\\b(class|interface|enum|typedef)\\s+([A-Za-z_]\\w*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.class.neohscript"
+            },
+            "2": {
+              "name": "entity.name.type.neohscript"
+            }
+          }
+        },
+        {
+          "match": "\\b(function)\\s+([A-Za-z_]\\w*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.function.neohscript"
+            },
+            "2": {
+              "name": "entity.name.function.neohscript"
+            }
+          }
+        },
+        {
+          "match": "\\b(var|final)\\s+([A-Za-z_]\\w*)",
+          "captures": {
+            "1": {
+              "name": "storage.type.neohscript"
+            },
+            "2": {
+              "name": "variable.other.declaration.neohscript"
+            }
+          }
+        },
+        {
+          "match": "\\b(new)\\s+([A-Za-z_][\\w.]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.operator.new.neohscript"
+            },
+            "2": {
+              "name": "entity.name.type.neohscript"
+            }
+          }
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "meta.preprocessor.neohscript",
+          "match": "^\\s*#(?:if|elseif|else|end)\\b.*$"
+        },
+        {
+          "name": "keyword.control.import.neohscript",
+          "match": "\\b(import|using|as)\\b"
+        },
+        {
+          "name": "storage.modifier.neohscript",
+          "match": "\\b(public|private|static|inline|override|extern|dynamic|extends|implements)\\b"
+        },
+        {
+          "name": "keyword.control.neohscript",
+          "match": "\\b(if|else|while|do|for|in|break|continue|return|switch|case|default|try|catch|throw)\\b"
+        },
+        {
+          "name": "keyword.operator.new.neohscript",
+          "match": "\\bnew\\b"
+        },
+        {
+          "name": "storage.type.neohscript",
+          "match": "\\b(var|final|function)\\b"
+        },
+        {
+          "name": "constant.language.neohscript",
+          "match": "\\b(true|false|null)\\b"
+        },
+        {
+          "name": "variable.language.neohscript",
+          "match": "\\bthis\\b"
+        }
+      ]
+    },
+    "members": {
+      "match": "(?<=[^.]\\.|\\?\\.)[A-Za-z_]\\w*\\b(?!\\s*\\()",
+      "name": "variable.other.property.neohscript"
+    },
+    "calls": {
+      "match": "\\b[A-Za-z_]\\w*(?=\\s*\\()",
+      "name": "entity.name.function.call.neohscript"
+    },
+    "types": {
+      "match": "\\b[A-Z][A-Za-z0-9_]*\\b",
+      "name": "entity.name.type.neohscript"
+    },
+    "operators": {
+      "name": "keyword.operator.neohscript",
+      "match": "\\.\\.\\.|\\?\\?=?|\\?\\.|=>|->|[+\\-*/%&|^!~<>=?]+"
+    }
+  }
+}

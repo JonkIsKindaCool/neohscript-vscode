@@ -1,0 +1,6 @@
+-cp src
+-cp ../neohscript/src
+-lib vscode
+-main Extension
+-js bin/extension.js
+-dce full

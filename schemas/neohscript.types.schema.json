@@ -1,0 +1,449 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NeoHScript type definitions",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "classes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doc": {
+            "type": "string",
+            "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+          },
+          "extends": {
+            "type": "string"
+          },
+          "constructor": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "doc": {
+                "type": "string",
+                "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+              },
+              "params": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/param"
+                }
+              }
+            }
+          },
+          "fields": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/field"
+            }
+          },
+          "methods": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/function"
+            }
+          },
+          "staticFields": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/field"
+            }
+          },
+          "staticMethods": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/function"
+            }
+          },
+          "typeParams": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "constraint": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Type parameters, for example [\"T\"] or [{\"name\":\"T\",\"constraint\":\"Entity\"}]."
+          },
+          "implements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interface": {
+            "type": "boolean"
+          },
+          "package": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "min": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "integer"
+              }
+            },
+            "description": "Source location used by go to definition."
+          }
+        }
+      }
+    },
+    "typedefs": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doc": {
+            "type": "string",
+            "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+          },
+          "type": {
+            "type": "string",
+            "description": "Alias target in Haxe type syntax."
+          },
+          "fields": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/field"
+            }
+          },
+          "typeParams": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "constraint": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Type parameters, for example [\"T\"] or [{\"name\":\"T\",\"constraint\":\"Entity\"}]."
+          },
+          "package": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "min": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "integer"
+              }
+            },
+            "description": "Source location used by go to definition."
+          }
+        }
+      }
+    },
+    "enums": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doc": {
+            "type": "string",
+            "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+          },
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "doc": {
+                  "type": "string",
+                  "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+                },
+                "params": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/param"
+                  }
+                },
+                "source": {
+                  "type": "object",
+                  "properties": {
+                    "file": {
+                      "type": "string"
+                    },
+                    "min": {
+                      "type": "integer"
+                    },
+                    "max": {
+                      "type": "integer"
+                    }
+                  },
+                  "description": "Source location used by go to definition."
+                }
+              }
+            }
+          },
+          "typeParams": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "constraint": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Type parameters, for example [\"T\"] or [{\"name\":\"T\",\"constraint\":\"Entity\"}]."
+          },
+          "package": {
+            "type": "string"
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "min": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "integer"
+              }
+            },
+            "description": "Source location used by go to definition."
+          }
+        }
+      }
+    },
+    "globals": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "doc": {
+            "type": "string",
+            "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+          },
+          "type": {
+            "type": "string"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/param"
+            }
+          },
+          "returns": {
+            "type": "string"
+          },
+          "readonly": {
+            "type": "boolean"
+          },
+          "typeParams": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "constraint": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            },
+            "description": "Type parameters, for example [\"T\"] or [{\"name\":\"T\",\"constraint\":\"Entity\"}]."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "param": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type in Haxe syntax, for example Int, Array<String>, (Int) -> Void, { x:Int }."
+        },
+        "optional": {
+          "type": "boolean",
+          "default": false
+        },
+        "doc": {
+          "type": "string"
+        }
+      }
+    },
+    "function": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "doc": {
+          "type": "string",
+          "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+        },
+        "params": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/param"
+          }
+        },
+        "returns": {
+          "type": "string",
+          "description": "Return type. Defaults to Void."
+        },
+        "typeParams": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "constraint": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          "description": "Type parameters, for example [\"T\"] or [{\"name\":\"T\",\"constraint\":\"Entity\"}]."
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "min": {
+              "type": "integer"
+            },
+            "max": {
+              "type": "integer"
+            }
+          },
+          "description": "Source location used by go to definition."
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "doc": {
+          "type": "string",
+          "description": "JSDoc-style text. Supports @param, @returns, @deprecated, @example and {@link x}."
+        },
+        "type": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        },
+        "readonly": {
+          "type": "boolean"
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "min": {
+              "type": "integer"
+            },
+            "max": {
+              "type": "integer"
+            }
+          },
+          "description": "Source location used by go to definition."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "name": "neohscript-vscode",
+  "displayName": "NeoHScript",
+  "description": "Language support for NeoHScript: diagnostics, type checking with generics, imports, hover, JSDoc, completion with auto-import, rename, code actions, inlay hints, semantic tokens, formatting and JSON type definitions.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "main": "./bin/extension.js",
+  "activationEvents": [
+    "onLanguage:neohscript"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "neohscript",
+        "aliases": [
+          "NeoHScript",
+          "neohscript"
+        ],
+        "extensions": [
+          ".hxs"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "neohscript",
+        "scopeName": "source.neohscript",
+        "path": "./syntaxes/neohscript.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "NeoHScript",
+      "properties": {
+        "neohscript.definitions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "neohscript.types.json",
+            "neohscript.generated.json"
+          ],
+          "description": "Workspace glob patterns of JSON files that define classes, typedefs, enums and globals exposed by the host."
+        },
+        "neohscript.globals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "print",
+            "Math",
+            "Std"
+          ],
+          "description": "Untyped global names provided by the host."
+        },
+        "neohscript.analysis.strictness": {
+          "type": "string",
+          "enum": [
+            "off",
+            "basic",
+            "strict"
+          ],
+          "default": "basic",
+          "description": "off: syntax, scopes and imports only. basic: type checking. strict: null safety and enforced inferred types."
+        },
+        "neohscript.sourceRoots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ""
+          ],
+          "description": "Workspace-relative folders that act as roots for module paths (import a.b.C resolves to <root>/a/b/C.hxs)."
+        },
+        "neohscript.defines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Conditional compilation defines used by #if."
+        },
+        "neohscript.inlayHints.types": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show inferred types for variables, parameters and loop variables."
+        },
+        "neohscript.inlayHints.parameters": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show parameter names at call sites."
+        }
+      }
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          "neohscript.types.json",
+          "neohscript.generated.json"
+        ],
+        "url": "./schemas/neohscript.types.schema.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "neohscript.reloadDefinitions",
+        "title": "NeoHScript: Reload type definitions"
+      },
+      {
+        "command": "neohscript.generateDocs",
+        "title": "NeoHScript: Generate API documentation"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "haxe build.hxml"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://example.com/neohscript"
+  }
+}
